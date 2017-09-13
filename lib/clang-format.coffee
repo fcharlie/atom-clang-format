@@ -2,7 +2,7 @@
 {execSync} = require 'child_process'
 os = require 'os';
 path = require 'path'
-clangFormatExecutables = require 'clang-format'
+#clangFormatExecutables = require 'clang-format'
 
 module.exports =
 class ClangFormat
@@ -40,18 +40,14 @@ class ClangFormat
   format: (editor) ->
     buffer = editor.getBuffer()
 
-    exe = atom.config.get('clang-format.executable')
+    exe = atom.config.get('clang-format-simple.executable')
     if not exe
-      exePackageLocation = path.dirname clangFormatExecutables.location
-      if os.platform() == 'win32'
-        exe = exePackageLocation + '/bin/win32/clang-format.exe';
-      else
-        exe = exePackageLocation + '/bin/' + os.platform() + "_" + os.arch() + '/clang-format';
+      exe = 'clang-format';
 
     options =
-      style: atom.config.get('clang-format.style')
+      style: atom.config.get('clang-format-simple.style')
       cursor: @getCurrentCursorPosition(editor).toString()
-      'fallback-style': atom.config.get('clang-format.fallbackStyle')
+      'fallback-style': atom.config.get('clang-format-simple.fallbackStyle')
 
     # Format only selection
     if @textSelected(editor)
@@ -88,21 +84,21 @@ class ClangFormat
           message: "ClangFormat Command Failed"
           detailedMessage: "This error is most often caused by not having
                             clang-format installed and on your path. If you do
-                            please create an issue on our github page."
+                            please create an issue on our github page."+error
           buttons:
             Okay: (->)
 
 
   shouldFormatOnSaveForScope: (scope) ->
-    if atom.config.get('clang-format.formatCPlusPlusOnSave') and scope in ['source.c++', 'source.cpp']
+    if atom.config.get('clang-format-simple.formatCPlusPlusOnSave') and scope in ['source.c++', 'source.cpp']
       return true
-    if atom.config.get('clang-format.formatCOnSave') and scope in ['source.c']
+    if atom.config.get('clang-format-simple.formatCOnSave') and scope in ['source.c']
       return true
-    if atom.config.get('clang-format.formatObjectiveCOnSave') and scope in ['source.objc', 'source.objcpp']
+    if atom.config.get('clang-format-simple.formatObjectiveCOnSave') and scope in ['source.objc', 'source.objcpp']
       return true
-    if atom.config.get('clang-format.formatJavascriptOnSave') and scope in ['source.js']
+    if atom.config.get('clang-format-simple.formatJavascriptOnSave') and scope in ['source.js']
       return true
-    if atom.config.get('clang-format.formatJavaOnSave') and scope in ['source.java']
+    if atom.config.get('clang-format-simple.formatJavaOnSave') and scope in ['source.java']
       return true
     return false
 
