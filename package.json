@@ -1,9 +1,26 @@
 {
   "name": "clang-format-simple",
   "main": "./lib/main",
-  "version": "1.29.0",
+  "version": "2.0.8",
   "private": true,
-  "description": "Format your C/C++/Obj-C/Javascript files with clang-format, fork by atom-clang-format, no deps",
-  "repository": "https://github.com/fcharlie/atom-clang-format-simple.git",
-  "license": "MIT"
+  "description": "Format your C/C++/Obj-C/Javascript files with clang-format from inside atom. Do not install clang-format-binaries",
+  "repository": "https://github.com/fcharlie/atom-clang-format-simple",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "atom --test .",
+    "release": "semantic-release --ci --debug"
+  },
+  "dependencies": {
+    "clang-format-binaries": "^0.0.1"
+  },
+  "devDependencies": {
+    "@semantic-release/apm": "^1.0.1",
+    "@semantic-release/git": "^7.0.7",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "semantic-release": "^15.13.2"
+  }
 }
